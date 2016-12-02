@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    tools:context="com.example.career.career.MainActivity">
+
+    <Button
+        android:text="@string/get_started"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/startbutton"
+        android:onClick="onClick"
+        android:layout_centerVertical="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        style="@style/Widget.AppCompat.Button"
+        android:textStyle="normal|bold"
+        tools:ignore="RtlHardcoded" />
+
+    <TextView
+        android:text="@string/please_select_a_country"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/countryselection"
+        android:textSize="18sp"
+        android:textStyle="normal|bold"
+        android:layout_marginTop="49dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+    <Spinner
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/spinner"
+        android:layout_marginTop="46dp"
+        android:layout_below="@+id/countryselection"
+        android:layout_alignParentStart="true" />
+
+
+</RelativeLayout>

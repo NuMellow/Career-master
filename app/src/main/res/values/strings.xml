@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">Career</string>
+    <string name="please_select_a_country">Please select a country</string>
+    <string name="get_started">Get Started...</string>
+    <string name="dialog_message_about">About dialog message..</string>
+    <string name="dialog_title_about">About dialog title</string>
+    <string name="ok">OK</string>
+    <string name="dialog_message_help">Dialog message help</string>
+    <string name="dialog_title_help">Dialog title help</string>
+    <string name="developer_email">Developer@info.com</string>
+    <string name="checkbox">CheckBox</string>
+    <string name="textview">TextView</string>
+    <string name="main_text">Choose your preference</string>
+
+    <string-array name="cluster_array">
+        <item>Malawi</item>
+        <item>Zambia</item>
+        <item>Namibia</item>
+        <item>South Africa</item>
+        <item>Kenya</item>
+    </string-array>
+
+</resources>
