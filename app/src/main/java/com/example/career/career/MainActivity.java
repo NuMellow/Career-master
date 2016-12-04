@@ -9,20 +9,26 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.career.career.m_Firebase.FirebaseHelper;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity
 {
 
     private DatabaseReference myDb;
-    private FirebaseHelper fireHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -30,18 +36,48 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Spinner spinner = (Spinner) findViewById(R.id.spinner);
+
 
         //connects to database and create a new FirebaseHelper
-        myDb = FirebaseDatabase.getInstance().getReference();
-        fireHelper = new FirebaseHelper(myDb);
+        myDb = FirebaseDatabase.getInstance().getReference().child("Country");
+        final Spinner spinner = (Spinner) findViewById(R.id.spinner);
 
-        //create adapter
-        ArrayAdapter<String> adp = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,fireHelper.retrieve() );
-        adp.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        myDb.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                final List<String> countries = new ArrayList<>();
 
-        //sets adapter to spinner
-        spinner.setAdapter(adp);
+                for (DataSnapshot countrySnapshot: dataSnapshot.getChildren())
+                {
+                    String counrtyName = countrySnapshot.child("Name").getValue(String.class);
+                    countries.add(counrtyName);
+                }
+
+                ArrayAdapter<String> countryAdapter = new ArrayAdapter<>(MainActivity.this, android.R.layout.simple_spinner_item, countries);
+                countryAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                spinner.setAdapter(countryAdapter);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+
+        myDb.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+
 
 
     }
@@ -151,3 +187,22 @@ public class MainActivity extends AppCompatActivity
 
 
 
+/*  fireHelper = new FirebaseHelper(myDb);
+
+        //create adapter
+        String[] country = new String[fireHelper.retrieve().size()];
+
+        for(int i = 0; i < country.length; i++)
+        {
+            country[i] = fireHelper.retrieve().get(i);
+        }
+
+
+        ArrayList<String> co = new ArrayList<>();
+
+
+        ArrayAdapter<String> adp = new ArrayAdapter<String>(MainActivity.this, android.R.layout.simple_list_item_1, fireHelper.retrieve());
+        adp.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        //sets adapter to spinner
+        spinner.setAdapter(adp);*/
